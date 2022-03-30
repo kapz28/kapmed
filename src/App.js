@@ -1,7 +1,10 @@
 import React, {useState, useEffect } from "react";
+import { ethers } from "ethers";
+import ErrorMessage from "./ErrorMessage";
+import TxList from "./TxList";
 import fire from './fire'
 import Login from './Login'
-import Hero from "./Hero"
+import WelcomePage from "./WelcomePage"
 import './App.css';
 
 const App = () => {
@@ -11,6 +14,7 @@ const App = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [hasAccount, setHasAccount] = useState('');
+  const [hasPayment, setHasPayment] = useState('');
 
   const clearInputs = () => {
     setEmail('');
@@ -55,6 +59,16 @@ const App = () => {
 
   const handleLogout = () => {
     fire.auth().signOut();
+    console.log("kapz28");
+  };
+
+  const handlePayment = () => {
+    console.log("chumma");
+    if(hasPayment){
+      setHasPayment("");
+    }else{
+      setHasPayment("true");
+    }
   };
 
   const authListener = () => {
@@ -75,7 +89,11 @@ const App = () => {
   return (
     <div className="App">
       {user ? 
-        (<Hero handleLogout={handleLogout} />) 
+        (<WelcomePage 
+          handleLogout={handleLogout} 
+          handlePayment={handlePayment}    
+          hasPayment={hasPayment}
+          setHasPayment={setHasPayment} />) 
         : 
         (<Login 
           email={email} 
@@ -90,8 +108,6 @@ const App = () => {
           passwordError={passwordError}
         />)
       }
-
-      
     </div>
   );
 };
