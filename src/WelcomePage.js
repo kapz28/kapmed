@@ -13,7 +13,7 @@ const WelcomePage = ({ handleLogout, handlePayment, hasPayment, setHasPayment })
             {hasPayment ? 
                 (<PaymentPage/>) 
                 : 
-                (<h2>no payments</h2>)
+                (<h2> </h2>)
             }
         </section>
     )
